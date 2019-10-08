@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.mapper.Test">
+	
+	<select id="getCustomer" resultType="com.example.test.domain.CustomerVO">
+	
+	select * from tempcustomer where id = #{id}
+	</select>
+	<select id="getMemberlist" resultType="com.example.test.domain.CustomerVO">
+	
+	select * from tempcustomer order by member_number asc
+	</select>
+	<select id="getList" resultType="com.example.test.domain.PostVO">
+		
+	select * from temppost 
+	
+	</select>
+	
+	<insert id="addPost" parameterType="com.example.test.domain.PostVO">
+	
+	insert into temppost(post_code,post_title,post_content,post_pay,id, item )
+	values(sequence_test.NEXTVAL, #{post_title}, #{post_content},sysdate,#{id},#{item})
+	</insert> 
+	<select id="getSpecific" resultType="com.example.test.domain.PostVO">
+	select * from temppost where post_code = #{post_code}
+	
+	
+	</select>
+	<update id="updatePost" parameterType="Map">
+	update temppost set  post_content = #{post_content}  where post_code = #{post_code}
+	
+	</update>
+	<delete id="deletePost" parameterType="com.example.test.domain.PostVO">
+	delete from temppost where post_code = #{post_code}
+	
+	
+	</delete>
+	<!-- 조회수 -->
+	<update id="updateClick" parameterType="com.example.test.domain.PostVO">
+		update temppost set post_visit = post_visit+ 1 where post_code = #{post_code} 
+		
+	</update>
+	<update id="masterPick" parameterType="com.example.test.domain.PostVO">
+	update temppost set masterpick = masterpick+ 1  where post_code = #{post_code} 
+	
+	
+	</update>
+	<update id="justPick" parameterType="com.example.test.domain.PostVO">
+	update temppost set justpick = justpick + 1  where post_code = #{post_code} 
+	
+	
+	</update>
+	
+
+</mapper>
